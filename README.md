@@ -72,7 +72,9 @@ This repository contains the following R scripts:
 
 - Not provided for 00_cost_distance.R: full_geo_lim_3035_V2.gpkg (published in Donnini et al. 2019)
 
-- Conversion tables for  00_cost_distance.R: from Supplementary Table 1 
+- Conversion tables for  00_cost_distance.R: from Supplementary Table 1
+  
+- Phylogeny (Source Data Fig. 2 in https://www.nature.com/articles/s41477-025-02001-0) 
 
 
 
