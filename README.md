@@ -1,6 +1,4 @@
-# README for submitted MS
-
-
+# Distribution patterns of polyploid plants
 
 Author: TZ  
 
@@ -9,11 +7,9 @@ Contact: tzzteresa@gmail.com
 Last Update: 05/2026
 
 
-
 ## Overview:
 
 This repository contains the following R scripts:
-
 
 
 1. **Cost-Distance Calculation**
