@@ -1,4 +1,4 @@
-\# README for submitted MS
+# README for submitted MS
 
 
 
@@ -10,73 +10,73 @@ Last Update: 06/2026
 
 
 
-\## Overview:
+## Overview:
 
 This repository contains the following R scripts:
 
 
 
-1\. \*\*Cost-Distance Calculation\*\*
+1. **Cost-Distance Calculation**
 
-&#x20;  - Script: 00\_cost\_distance.R
+- Script: 00_cost_distance.R
 
-&#x20;  - Optional: results already included in Source Data 1 
+- Optional: results already included in Source Data 1 
 
-&#x20;  - Calculates conductance rasters and cost distances for three categories of plants based on substrate preference.  
+- Calculates conductance rasters and cost distances for three categories of plants based on substrate preference.  
 
-&#x20;  - Inputs: lithology shapefile (not provided), conversion tables (Supplementary Table 1), site points   
+- Inputs: lithology shapefile (not provided), conversion tables (Supplementary Table 1), site points   
 
-&#x20;  - Outputs: raster files, processed point shapefiles, distance matrices.
-
-
-
-3\. \*\*Statistical Analyses and Plots\*\*  
-
-&#x20;  - Script: 01\_figures.R  
-
-&#x20;  - Performs descriptive statistics, some GLM/GLMM analyses, and produces manuscript figures  
-
-&#x20;  - Inputs: Source Data 1, optional layers for map  
-
-&#x20;  - Outputs: figures
+- Outputs: raster files, processed point shapefiles, distance matrices.
 
 
 
-4\. \*\*Large GLMM/GLM Loops\*\*  
+3. **Statistical Analyses and Plots**  
 
-&#x20;  - Script: 02\_models\_loop.R  
+- Script: 01_figures.R  
 
-&#x20;  - Fits GLMMs and GLMs to model the probability of polyploidy as a function of predictors for whole dataset and for mixed-ploidy genera/species.
+- Performs descriptive statistics, some GLM/GLMM analyses, and produces manuscript figures  
 
-&#x20;  - Inputs: Source Data 1
+- Inputs: Source Data 1, optional layers for map  
 
-&#x20;  - Outputs: model summaries for all GLMM results across response × distance × model × random structure, GLMs for mixed-ploidy species / aggregates, and GLMs for mixed-ploidy genera; figures for model prefictions; figures for effects
-
-
-
-5\. \*\*Phylogenetic correction\*\*
-
-&#x20;  - Script: 03\_phylosig\_pglm.R
-
-&#x20;  - Calculate phylogenetic signal of ploidy and fit phyloglm
-
-&#x20;  - Inputs: phyloalps tree, Source Data 1
+- Outputs: figures
 
 
 
-\## Required files:
+4. **Large GLMM/GLM Loops**  
 
-\- R scripts
+- Script: 02_models_loop.R  
 
-\- Source Data 1 (for 01\_figures.R, 02\_models\_loop.R, 03\_phylosig\_pglm.R)
+- Fits GLMMs and GLMs to model the probability of polyploidy as a function of predictors for whole dataset and for mixed-ploidy genera/species.
 
-\- Not provided for 00\_cost\_distance.R: full\_geo\_lim\_3035\_V2.gpkg (published in Donnini et al. 2019)
+- Inputs: Source Data 1
 
-\- Conversion tables for  00\_cost\_distance.R: from Supplementary Table 1 
+- Outputs: model summaries for all GLMM results across response × distance × model × random structure, GLMs for mixed-ploidy species / aggregates, and GLMs for mixed-ploidy genera; figures for model prefictions; figures for effects
 
 
 
-\## 1. System requirements
+5. **Phylogenetic correction**
+
+- Script: 03_phylosig_pglm.R
+
+- Calculate phylogenetic signal of ploidy and fit phyloglm
+
+- Inputs: phyloalps tree, Source Data 1
+
+
+
+## Required files:
+
+- R scripts
+
+- Source Data 1 (for 01_figures.R, 02_models_loop.R, 03_phylosig_pglm.R)
+
+- Not provided for 00_cost_distance.R: full_geo_lim_3035_V2.gpkg (published in Donnini et al. 2019)
+
+- Conversion tables for  00_cost_distance.R: from Supplementary Table 1 
+
+
+
+## 1. System requirements
 
 Operating Systems: tested on Windows 11
 
@@ -88,17 +88,17 @@ R Version: R >= 4.2.0 (analyses conducted in R 4.4.1)
 
 Required R packages:  
 
-phytools\_2.4-4
+phytools_2.4-4
 
-maps\_3.4.2.1
+maps_3.4.2.1
 
-phylolm\_2.6.5
+phylolm_2.6.5
 
-phyr\_1.1.3
+phyr_1.1.3
 
-here\_1.0.1
+here_1.0.1
 
-ape\_5.8-1 
+ape_5.8-1 
 
 broom.mixed 0.2.9.6  
 
@@ -182,87 +182,87 @@ Non-standard hardware: None required
 
 
 
-\## 2. Installation
+## 2. Installation
 
-1\. Install R (CRAN), optionally RStudio, and required R packages  (typical installation times, here)
+1. Install R (CRAN), optionally RStudio, and required R packages  (typical installation times, here)
 
-2\. Place scripts in appropriate folder: scripts/ 
+2. Place scripts in appropriate folder: scripts/ 
 
-3\. Place input files in appropriate folders:
+3. Place input files in appropriate folders:
 
-&#x20;  - data\_in/: conversion tables (Supplementary Table 1)
+- data_in/: conversion tables (Supplementary Table 1)
 
-&#x20;  - data/pro/: Source Data 1 (Source\_Data.xlsx)
+- data/pro/: Source Data 1 (Source_Data.xlsx)
 
-&#x20;  - GIS\_data/: shapefiles, GeoPackages
-
-
-
-\## 3. Demo
-
-\*\*Cost-Distance Calculation\*\*
-
-\- Prepare full\_geo\_lim\_3035\_V2.gpkg (published in Donnini et al. 2019)
-
-\- Run script 00\_cost\_distance.R
-
-\- Output: conductance rasters, processed point shapefiles, distance matrices for 3 distance versions and 3 plant categories
-
-\- Expected run time: ca. 3 h
+- GIS_data/: shapefiles, GeoPackages
 
 
 
-\*\*Statistical Analyses and Plots\*\*
+## 3. Demo
 
-\- Run script 01\_figures.R  
+**Cost-Distance Calculation**
 
-\- Output: PDF/PNG figures
+- Prepare full_geo_lim_3035_V2.gpkg (published in Donnini et al. 2019)
 
-\- Expected run time: 5 min
+- Run script 00_cost_distance.R
 
+- Output: conductance rasters, processed point shapefiles, distance matrices for 3 distance versions and 3 plant categories
 
-
-\*\*Large GLMM/GLM Loops\*\*
-
-\- Run script 02\_models\_loop.R  
-
-\- Output: model summaries for all GLMM results across response × distance × model × random structure, GLMs for mixed-ploidy species, and GLMs for mixed-ploidy genera; figures for model predictions; figures for effects
-
-\- Expected run time: 5 min
+- Expected run time: ca. 3 h
 
 
 
-\*\*Phylogenetic correction\*\*
+**Statistical Analyses and Plots**
 
-\- Run script 03\_phylosig\_pglm.R
+- Run script 01_figures.R  
 
-\- Output: Pagel's Lambda and phylogenetic GLM summary
+- Output: PDF/PNG figures
 
-\- Expected run time: 5 min
-
-
+- Expected run time: 5 min
 
 
 
-\## 4. Instructions
+**Large GLMM/GLM Loops**
 
-1\. Adjust filtering options, model variables, and predictor selections as needed.  
+- Run script 02_models_loop.R  
 
-2\. Run scripts in R or RStudio.  
+- Output: model summaries for all GLMM results across response × distance × model × random structure, GLMs for mixed-ploidy species, and GLMs for mixed-ploidy genera; figures for model predictions; figures for effects
+
+- Expected run time: 5 min
+
+
+
+**Phylogenetic correction**
+
+- Run script 03_phylosig_pglm.R
+
+- Output: Pagel's Lambda and phylogenetic GLM summary
+
+- Expected run time: 5 min
+
+
+
+
+
+## 4. Instructions
+
+1. Adjust filtering options, model variables, and predictor selections as needed.  
+
+2. Run scripts in R or RStudio.  
 
 
 
 Optional:
 
-\- Subset analyses by light preference, dispersal distance, or taxon
+- Subset analyses by light preference, dispersal distance, or taxon
 
-\- Change distance and ploidy versions
+- Change distance and ploidy versions
 
-\- Skip GLMMs or pSEM for faster runs
+- Skip GLMMs or pSEM for faster runs
 
 
 
-\## 5. Contact
+## 5. Contact
 
 For questions regarding scripts or datasets, contact the author TZ.  
 
