@@ -74,7 +74,7 @@ This repository contains the following R scripts:
 
 - Conversion tables for  00_cost_distance.R: from Supplementary Table 1
   
-- Phylogeny (Source Data Fig. 2 in https://www.nature.com/articles/s41477-025-02001-0) 
+- Phylogeny (Source Data Fig. 2 in [Wootton et al., Nature Plants (2025)](https://www.nature.com/articles/s41477-025-02001-0) )
 
 
 
@@ -89,100 +89,52 @@ R Version: R >= 4.2.0 (analyses conducted in R 4.4.1)
 
 
 Required R packages:  
-
 phytools_2.4-4
-
 maps_3.4.2.1
-
 phylolm_2.6.5
-
 phyr_1.1.3
-
 here_1.0.1
-
 ape_5.8-1 
-
 broom.mixed 0.2.9.6  
-
 broom 1.0.7  
-
 MuMIn 1.48.11  
-
 performance 0.15.2  
-
 visreg 2.7.0  
-
 dotwhisker 0.8.3  
-
 sjlabelled 1.2.0  
-
 sjmisc 2.8.10  
-
 car 3.1-3  
-
 carData 3.0-5  
-
 DiagrammeR 1.0.11  
-
 ggeffects 1.7.2  
-
 sjPlot 2.8.16  
-
 piecewiseSEM 2.3.0  
-
 lme4 1.1-35.5  
-
 ggpubr 0.6.0  
-
 rstatix 0.7.2  
-
 janitor 2.2.0  
-
 patchwork 1.3.2  
-
 tidyterra 0.6.1  
-
 gdistance 1.6.4  
-
 Matrix 1.7-0  
-
 igraph 2.1.1  
-
 raster 3.6-30  
-
 sp 2.1-4  
-
 terra 1.7-83  
-
 sf 1.0-19  
-
 rio 1.2.3  
-
 lubridate 1.9.3  
-
 forcats 1.0.0  
-
 stringr 1.5.1  
-
 dplyr 1.1.4  
-
 purrr 1.0.2  
-
 readr 2.1.5  
-
 tidyr 1.3.1  
-
 tibble 3.2.1  
-
 ggplot2 4.0.2  
-
 tidyverse 2.0.0
 
-
-
 Non-standard hardware: None required
-
-
 
 ## 2. Installation
 
