@@ -2,7 +2,8 @@
 .Rhistory
 .RData
 .Ruserdata
-.Rproj
-.csv
+*.Rproj
+*.csv
 GIS_data/
+output/
 data/
