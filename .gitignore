@@ -4,6 +4,7 @@
 .Ruserdata
 *.Rproj
 *.csv
+*.pdf
 GIS_data/
 output/
 data/
