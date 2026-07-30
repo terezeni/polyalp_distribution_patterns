@@ -32,7 +32,7 @@ This repository contains the following R scripts:
 
 - Performs descriptive statistics, some GLM/GLMM analyses, and produces manuscript figures  
 
-- Inputs: Source Data, optional layers for map  
+- Inputs: Supplementary Data 1, optional layers for map  
 
 - Outputs: figures
 
@@ -44,7 +44,7 @@ This repository contains the following R scripts:
 
 - Fits GLMMs and GLMs to model the probability of polyploidy as a function of predictors for whole dataset and for mixed-ploidy genera/species.
 
-- Inputs: Source Data
+- Inputs: Supplementary Data 1
 
 - Outputs: model summaries for all GLMM results across response × distance × model × random structure, GLMs for mixed-ploidy species / aggregates, and GLMs for mixed-ploidy genera; figures for model prefictions; figures for effects
 
@@ -56,7 +56,7 @@ This repository contains the following R scripts:
 
 - Calculate phylogenetic signal of ploidy and fit phyloglm
 
-- Inputs: phyloalps tree, Source Data
+- Inputs: phyloalps tree, Supplementary Data 1
 
 
 
@@ -64,7 +64,7 @@ This repository contains the following R scripts:
 
 - R scripts
 
-- Source Data (for 01_figures.R, 02_models_loop.R, 03_phylosig_pglm.R)
+- Supplementary Data 1 (for 01_figures.R, 02_models_loop.R, 03_phylosig_pglm.R)
 
 - Not provided for 00_cost_distance.R: full_geo_lim_3035_V2.gpkg (published in Donnini et al. 2019)
 
@@ -142,7 +142,7 @@ Non-standard hardware: None required
 
 - data_in/: conversion tables (Supplementary Table 1)
 
-- data/pro/: Source Data (Source_Data.xlsx)
+- data/pro/: Supplementary Data 1 (Supplementary_Data_1.xlsx)
 
 - GIS_data/: shapefiles, GeoPackages
 
