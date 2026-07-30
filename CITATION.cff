@@ -5,9 +5,9 @@ title: "R scripts for Polyploid frequency decreases with elevation but increases
 
 type: software
 
-authors:
+author:
 
-* family-names: "Zeni"
+- family-names: "Zeni"
   given-names: "Teresa"
   orcid: "https://orcid.org/0009-0001-8982-7973"
 
