@@ -7,4 +7,6 @@
 *.pdf
 GIS_data/
 output/
+model_output/
 data/
+min_size.R
