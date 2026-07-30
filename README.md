@@ -1,6 +1,7 @@
 # Distribution patterns of polyploid plants
 
-**Author:** Teresa Zeni **Last updated:** July 2026
+**Author:** Teresa Zeni  
+**Last updated:** July 2026
 
 ## Overview
 
@@ -289,6 +290,6 @@ See the `LICENSE` file for the full license text.
 
 For questions regarding the R scripts or associated datasets, please contact:
 
-Teresa Zeni 
+Teresa Zeni  
 **Email:** [tzzteresa\@gmail.com](mailto:tzzteresa@gmail.com)\
 **ORCID:** <https://orcid.org/0009-0001-8982-7973>
