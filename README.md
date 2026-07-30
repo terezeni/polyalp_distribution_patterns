@@ -7,12 +7,6 @@
 
 This repository contains the R scripts used for the analyses and figure generation associated with a manuscript submitted to *Nature Communications*.
 
-## Code and citation
-
-The R scripts associated with this study are archived on Zenodo: https://doi.org/10.5281/zenodo.21701400 
-
-If you use these scripts, please cite the Zenodo record.
-
 The repository contains the following R scripts:
 
 ### 1. Cost-Distance Calculation
@@ -274,11 +268,9 @@ Users may:
 
 ## 5. Citation
 
-If you use the R scripts in this repository, please cite the software repository and the associated publication when available.
+The R scripts associated with this study are archived on Zenodo: https://doi.org/10.5281/zenodo.21701400 
 
-A citation for the archived version of the software will be added after the repository is archived on Zenodo.
-
-The associated manuscript is currently submitted to *Nature Communications*.
+If you use these scripts, please cite the Zenodo record.
 
 ------------------------------------------------------------------------
 
