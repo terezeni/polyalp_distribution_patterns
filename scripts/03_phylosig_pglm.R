@@ -12,7 +12,7 @@ library(phylolm)
 library(phytools)
 
 # 1. Load data
-df      <- import(here("data", "pro", "Source_Data.xlsx"), which = 2)
+df      <- import(here("data", "pro", "Supplementary_Data_1.xlsx"), which = 2)
 log_raw <- import(here("data", "pg", "log.csv"))
 
 phy_orig =  read.tree(here("data", "pg", "231108_pruned_phyloalps_tree.tre"))

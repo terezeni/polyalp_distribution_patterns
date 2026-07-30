@@ -49,7 +49,7 @@ if (!dir.exists(gen)) dir.create(gen, recursive = TRUE)
 
 # DATA ----
 data <- import(paste0(data_path,
-                      "/pro/Source_Data_rev.xlsx"), which = 2) |> 
+                      "/pro/Supplementary_Data_1.xlsx"), which = 2) |> 
   clean_names() |> 
   mutate(ref = paste0(mountain_code, "-", belt),
          mountain = as.factor(mountain_code),

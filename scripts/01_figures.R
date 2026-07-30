@@ -67,7 +67,7 @@ theme <- theme_classic(base_family = "Arial", base_size = 10) +
 
 # IMPORT DATA ----
 ## dataset ----
-data <- import(paste0(data_path, "/pro/Source_Data_rev.xlsx"), which = 2)
+data <- import(paste0(data_path, "/pro/Supplementary_Table_1.xlsx"), which = 2)
 
 ### optional layers for map ----
 alp = vect(paste0(gis_path,"/countries/borders_Alps.shp"))
@@ -287,8 +287,8 @@ test_all$statistic
 fig2a_source <- counts_belt_complete |>
   dplyr::select(mountain_code, belt, f_px, total_spec)
 
-addWorksheet(source_wb, "Fig2a")
-writeData(source_wb, "Fig2a", fig2a_source)
+# addWorksheet(source_wb, "Fig2a")
+# writeData(source_wb, "Fig2a", fig2a_source)
 
 (bxp_belt_freq <- counts_belt_complete |>
     ggplot(aes(x = belt, y = f_px)) +
@@ -403,8 +403,8 @@ counts_geo_belt_filtered <-  counts_geo_belt |>
 fig2b_source <- counts_geo_belt_filtered |>
   dplyr::select(mountain_code, belt, refugium, f_px, total_spec)
 
-addWorksheet(source_wb, "Fig2b")
-writeData(source_wb, "Fig2b", fig2b_source)
+# addWorksheet(source_wb, "Fig2b")
+# writeData(source_wb, "Fig2b", fig2b_source)
 
 pos <- position_dodge(width = .9)
 
@@ -666,8 +666,8 @@ fig2c_source <- results |>
 
 
 
-addWorksheet(source_wb, "Fig2c")
-writeData(source_wb, "Fig2c", fig2c_source)
+# addWorksheet(source_wb, "Fig2c")
+# writeData(source_wb, "Fig2c", fig2c_source)
 
 ## save
 ggsave(
@@ -831,8 +831,8 @@ Fig3_b_ann <- Fig3_b_ann +
 fig3_source <- counts_geo_mountain |>
   dplyr::select(mountain_code, subunit, refugium, dst, f_px, total_spec)
 
-addWorksheet(source_wb, "Fig3")
-writeData(source_wb, "Fig3", fig3_source)
+# addWorksheet(source_wb, "Fig3")
+# writeData(source_wb, "Fig3", fig3_source)
 
 
 ## save
@@ -1170,8 +1170,8 @@ mod_poly <- glmer(polyploid ~ elevation * distance + disp_far +  (1|mountain_cod
 mod_disp <- glmer(disp_far ~ elevation + (1|mountain_code), family = binomial, data = df)
 
 # source data
-addWorksheet(source_wb, "Fig5")
-writeData(source_wb, "Fig5", df)
+# addWorksheet(source_wb, "Fig5")
+# writeData(source_wb, "Fig5", df)
 
 
 # Include correlated error between traits
@@ -1414,8 +1414,8 @@ fig4_source <- data_model |>
   dplyr::select(polyploid, elevation, distance, mountain_code, family) |>
   tidyr::drop_na()
 
-addWorksheet(source_wb, "Fig4")
-writeData(source_wb, "Fig4", fig4_source)
+# addWorksheet(source_wb, "Fig4")
+# writeData(source_wb, "Fig4", fig4_source)
 
 ### Fig 4a: effects ----
 # same as supplementc c but change label
