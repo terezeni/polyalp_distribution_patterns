@@ -49,7 +49,7 @@ if (!dir.exists(gen)) dir.create(gen, recursive = TRUE)
 
 # DATA ----
 data <- import(paste0(data_path,
-                      "/pro/Source_Data.xlsx"), which = 2) |> 
+                      "/pro/Source_Data_rev.xlsx"), which = 2) |> 
   clean_names() |> 
   mutate(ref = paste0(mountain_code, "-", belt),
          mountain = as.factor(mountain_code),
@@ -91,8 +91,8 @@ response_vars <- c("polyploid_orig", "polyploid_alt")
 dist_vars <- c("dist_v0", "dist_v_a", "dist_v_b")
 
 # # quicker for subsets only one ploidy and one distance
-# response_vars <- c("polyploid_orig")
-# dist_vars <- c("dist_v0")
+#response_vars <- c("polyploid_orig")
+#dist_vars <- c("dist_v0")
 
 ## model formulas ----
 # all
@@ -563,3 +563,9 @@ supp_results_mxslt_d %>%
     median_or = median(exp(estimate), na.rm = TRUE),
     p_wilcox = wilcox.test(exp(estimate), mu = 1, alternative = "two.sided")$p.value
   )
+
+
+supp_results_mxslt_e %>%
+  group_by(dispersal_ability) |> write_clip()
+supp_results_mxslt_d %>%
+  group_by(dispersal_ability) |> write_clip()

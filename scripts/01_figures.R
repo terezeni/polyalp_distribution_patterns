@@ -21,9 +21,10 @@ library(sjPlot)
 library(ggeffects)
 library(DiagrammeR) # paths diagram
 library(extrafont)
+library(openxlsx)
+
+source_wb <- createWorkbook()
 loadfonts(device = "win")
-
-
 
 
 # DIRECTORIES ----
@@ -38,7 +39,7 @@ output_path <- file.path(project_dir, "output")
 # ploidy_ version one of "ploidy_orig" or "ploidy_alt"
 ploidy_version = "ploidy_orig"
 
-# subset: one of "all", "light", "forest", "far", "close"
+# subset: one of "all", "far", "close"
 subset = "all"
 
 # distance version "dist_v0", "dist_vA", "dist_v_B"
@@ -63,15 +64,10 @@ theme <- theme_classic(base_family = "Arial", base_size = 10) +
                                     fill = NA),
         legend.background = element_blank(),
         legend.box.background = element_blank())
-## helper function
-findoutlier <- function(x) {
-return(x < quantile(x, .25) - 1.5 * IQR(x) |
-         x > quantile(x, .75) + 1.5 * IQR(x))
-}
 
 # IMPORT DATA ----
 ## dataset ----
-data <- import(paste0(data_path, "/pro/Source_Data.xlsx"), which = 2)
+data <- import(paste0(data_path, "/pro/Source_Data_rev.xlsx"), which = 2)
 
 ### optional layers for map ----
 alp = vect(paste0(gis_path,"/countries/borders_Alps.shp"))
@@ -94,7 +90,6 @@ data <- data |>
          subunit = as.factor(subunit),
          refugium = as.factor(refugium),
         dispersal_ability = as.factor(dispersal_ability),
-        light_preference = as.factor(light_preference),
         family = as.factor(family),
         polyploid_orig = ifelse(ploidy_orig != 2, 1, 0),
         polyploid_alt = ifelse(ploidy_alt != 2, 1, 0)
@@ -201,14 +196,11 @@ counts_belt <- counts_belt %>%
     f_px = n_px / total_spec,
     belt = as.factor(belt),
     mountain_code = as.factor(mountain_code)
-  ) |> 
-  group_by(belt) |>
-  mutate(outlier = ifelse(findoutlier(f_px), NA, f_px))  # useful column for boxplot plotting
+  ) 
 
 ## dataframe for plotting by subunit, belt level
 counts_geo_belt <- counts_belt |>
-  group_by(subunit) |>
-  mutate(outlier = ifelse(findoutlier(f_px), NA, f_px)) |>
+  group_by(subunit) |> 
   mutate(subunit = fct_relevel(subunit, c('SLA', 'NLA', "CEA")))
 
 ## subset only complete transects ---- 
@@ -255,7 +247,6 @@ counts_per_mountain$dst = scale(counts_per_mountain$dst)[, 1]
 ## dataframe for plotting by subunit, mountain level
 counts_geo_mountain <- counts_per_mountain |>
   group_by(subunit) |>
-  mutate(outlier = ifelse(findoutlier(f_px), NA, f_px)) |> 
   ungroup()
 
 ## data for glm and glmms ----
@@ -288,7 +279,17 @@ counts_belt_complete$f_px |> max()
 test_all$statistic
 
 
+
+
 ### Fig 2a: boxplot belt with Friedman test ----
+
+# Minimal source for Fig 2a (belt frequency)
+fig2a_source <- counts_belt_complete |>
+  dplyr::select(mountain_code, belt, f_px, total_spec)
+
+addWorksheet(source_wb, "Fig2a")
+writeData(source_wb, "Fig2a", fig2a_source)
+
 (bxp_belt_freq <- counts_belt_complete |>
     ggplot(aes(x = belt, y = f_px)) +
     # Jittered points with size mapped to total_spec
@@ -343,10 +344,9 @@ test_all$statistic
     stat_summary(
       geom = 'text',
       #label = c("a", "ab", "b", "c", "c"), # alt
-      #label = c("a", "b", "b", "c", "c"), # light
-      label = c("a", "a", "a", "a", "a"), # far
+      #label = c("a", "a", "a", "a", "a"), # far
       #label = c("a", "b", "c", "d", "e"), # close
-      #label = c("a", "a", "b", "c", "c"), # all
+      label = c("a", "a", "b", "c", "c"), # all
       fun.y = max,
       vjust = 0,
       hjust = 0,
@@ -388,8 +388,7 @@ counts_geo_complete <- counts_geo_belt |>
   droplevels()
 
 ### Fig 2b: boxplot frequency elevation by glaciated vs refugia ----
-pos <- position_dodge(width = .9)
-region_belt_plot_ref <- counts_geo_belt |>
+counts_geo_belt_filtered <-  counts_geo_belt |>
   group_by(mountain_code) |>
   filter(n_distinct(belt) == 5) |>  # keep only mountains with all 5 belts
   ungroup() |>
@@ -398,7 +397,18 @@ region_belt_plot_ref <- counts_geo_belt |>
     refugium,
     levels = c("g", "r"),
     labels = c("Glaciated", "Refugium")
-  )) |>
+  ))
+
+# Minimal source for Fig 2b (belt x refugium frequency)
+fig2b_source <- counts_geo_belt_filtered |>
+  dplyr::select(mountain_code, belt, refugium, f_px, total_spec)
+
+addWorksheet(source_wb, "Fig2b")
+writeData(source_wb, "Fig2b", fig2b_source)
+
+pos <- position_dodge(width = .9)
+
+region_belt_plot_ref <- counts_geo_belt_filtered |>
   ggplot(aes(x = refugium, y = f_px)) +
   geom_boxplot(
     aes(group = interaction(belt, refugium), color = belt),
@@ -429,17 +439,17 @@ region_belt_plot_ref <- counts_geo_belt |>
   ) +
   theme(legend.position = "none")
 
-# counts_geo_belt |>
-#   group_by(mountain_code) |>
-#   filter(n_distinct(belt) == 5) |>  # keep only mountains with all 5 belts
-#   ungroup() |>
-#   droplevels() |>
-#   mutate(refugium = factor(
-#     refugium,
-#     levels = c("g", "r"))) |> 
-#   filter(refugium=="r") |> 
-#   droplevels() |> 
-# friedman_test(f_px ~ belt | mountain_code)
+counts_geo_belt |>
+  group_by(mountain_code) |>
+  filter(n_distinct(belt) == 5) |>  # keep only mountains with all 5 belts
+  ungroup() |>
+  droplevels() |>
+  mutate(refugium = factor(
+    refugium,
+    levels = c("g", "r"))) |>
+  filter(refugium=="g") |>
+  droplevels() |>
+friedman_test(f_px ~ belt | mountain_code)
 
 ## save
 ggsave(
@@ -528,6 +538,7 @@ or_df <- data.frame(term = rownames(coefs),
     ))
 
 
+
 ## save
 ggsave(
   create.dir = T,
@@ -576,6 +587,7 @@ results$mountain_code <- as.numeric(results$mountain_code)
 
 # merge
 points_vect <- left_join(points, results)
+
 
 # crop raster to extent of points
 alp_crop = crop(alp, ext(9, 16.7, 45.2, 48.2))
@@ -641,6 +653,22 @@ alp_crop = crop(alp, ext(9, 16.7, 45.2, 48.2))
             datum = sf::st_crs(4326))
 )
 
+# Get attributes + XY
+points_df <- terra::as.data.frame(points) |> 
+  dplyr::select(mountain, x, y) |> 
+  mutate(mountain_code = as.numeric(mountain))
+
+# Minimal source for Fig. 2c (with coordinates)
+fig2c_source <- results |>
+  dplyr::select(mountain_code, odds_ratio) |>
+  dplyr::left_join(points_df, by = "mountain_code") |>
+  dplyr::select(mountain_code, x, y, odds_ratio)
+
+
+
+addWorksheet(source_wb, "Fig2c")
+writeData(source_wb, "Fig2c", fig2c_source)
+
 ## save
 ggsave(
   create.dir = T,
@@ -649,7 +677,7 @@ ggsave(
   device = cairo_pdf,
   dpi = 600,
   height = 75,
-  unit = "mm",
+  units = "mm",
   width = 75
 )
 
@@ -708,7 +736,7 @@ ggsave(
   path = paste0(output_dir, "/", ploidy_version),
   device = cairo_pdf,
   height = 200,
-  unit = "mm",
+  units = "mm",
   width = 175
 )
 temph = Fig2_a + Fig2_b + plot_layout(widths = c(1, 1))
@@ -720,7 +748,7 @@ ggsave(
   path = paste0(output_dir, "/", ploidy_version),
   device = cairo_pdf,
   height = 60,
-  unit = "mm",
+  units = "mm",
   width = 180
 )
 
@@ -799,6 +827,14 @@ Fig3_b_ann <- Fig3_b_ann +
      parse = T
    )))
 
+# Minimal source for Fig 3a (distance vs frequency with model)
+fig3_source <- counts_geo_mountain |>
+  dplyr::select(mountain_code, subunit, refugium, dst, f_px, total_spec)
+
+addWorksheet(source_wb, "Fig3")
+writeData(source_wb, "Fig3", fig3_source)
+
+
 ## save
 ggsave(plot = fig_3,
   create.dir = T,
@@ -806,7 +842,7 @@ ggsave(plot = fig_3,
   path = paste0(output_dir, "/", ploidy_version),
   device = cairo_pdf,
   height = 75,
-  unit = "mm",
+  units = "mm",
   width = 150)
 
 ## save
@@ -816,7 +852,7 @@ ggsave(plot = fig_3,
 #   filename = paste0("fig_3_current_", ploidy_version, ".png"),
 #   path = paste0(output_dir, "/", ploidy_version),
 #   height = 75,
-#   unit = "mm",
+#   units = "mm",
 #   width = 150,
 #   dpi = 300
 # )
@@ -1022,7 +1058,7 @@ ggsave(
   path = paste0(output_dir, "/", ploidy_version),
   device = cairo_pdf,
   height = 100,
-  unit = "mm",
+  units = "mm",
   width = 210
 )
 
@@ -1035,7 +1071,7 @@ ggsave(
   device = cairo_pdf,
   path = paste0(output_dir, "/", ploidy_version),
   height = 297,
-  unit = "mm",
+  units = "mm",
   width = 210
 )
 
@@ -1048,13 +1084,14 @@ ggsave(
   path = paste0(output_dir, "/", ploidy_version),
   device = cairo_pdf,
   height = 297,
-  unit = "mm",
+  units = "mm",
   width = 210
 )
 
 ## supplementary figures 2-3 ----
 ### a: belts ----
 supplement_a <- Fig2_a
+
 ### b: distance ----
 supplement_b <- Fig3_a +
   annotate("text", x = -1.5, y = .48, label = "bold(b)", parse = T)
@@ -1067,6 +1104,8 @@ f_glmer_fam <- as.formula("polyploid ~ elevation * distance +  (1|mountain_code)
 # models
 glmm_pred <- glmer(f_glmer, data = data_model, family = binomial)
 glmm_fam_pred <- glmer(f_glmer_fam, data = data_model, family = binomial)
+
+
 
 # plot
 (supplement_c <- plot_models(
@@ -1114,15 +1153,14 @@ glmm_fam_pred_add <- glmer(f_glmer_fam_add, data = data_model, family = binomial
 ## data for psem
 str(data_model)
 df <- data_model |> 
-  dplyr::select(polyploid, distance, elevation, dispersal_ability, light_preference, mountain_code, belt) |> 
-  mutate(forest= as.factor(light_preference),
+  dplyr::select(polyploid, distance, elevation, dispersal_ability, mountain_code, belt) |> 
+  mutate(
          dispersal = as.factor(dispersal_ability))
 df = na.omit(df)
 
 # convert categorical traits to numeric 0/1 for SEM
 df$disp_far <- ifelse(df$dispersal == "far", 1, 0)
-df$forest_shade <- ifelse(df$forest == "shade", 1, 0)
- 
+
 ### models ----
 # GLMM for polyploid frequency with interaction between elevation and distance (change accordingly)
 mod_poly <- glmer(polyploid ~ elevation * distance + disp_far +  (1|mountain_code), 
@@ -1130,7 +1168,11 @@ mod_poly <- glmer(polyploid ~ elevation * distance + disp_far +  (1|mountain_cod
 
 # GLMs for indirect effects (traits as responses)
 mod_disp <- glmer(disp_far ~ elevation + (1|mountain_code), family = binomial, data = df)
-#mod_forest <- glmer(forest_shade ~ elevation +distance+(1|mountain_code), family = binomial, data = df)
+
+# source data
+addWorksheet(source_wb, "Fig5")
+writeData(source_wb, "Fig5", df)
+
 
 # Include correlated error between traits
 sem_model <- psem(
@@ -1272,6 +1314,8 @@ graph <- create_graph(
 # render (plot)
 render_graph(graph)
 
+
+
 ## save pdf
 export_graph(graph = graph, "paths_d.pdf", file_type = "pdf")
 
@@ -1365,6 +1409,14 @@ p_val <- mean(perm_diffs >= obs_diff)
 obs_diff
 p_val
 
+# Minimal source for Fig 4a (GLMM effects) — model input rows used
+fig4_source <- data_model |>
+  dplyr::select(polyploid, elevation, distance, mountain_code, family) |>
+  tidyr::drop_na()
+
+addWorksheet(source_wb, "Fig4")
+writeData(source_wb, "Fig4", fig4_source)
+
 ### Fig 4a: effects ----
 # same as supplementc c but change label
 (p_left <- plot_models(
@@ -1446,11 +1498,16 @@ ggsave(
 
 
 
-
 ## check
 # n_samples_close
 # n_samples_far
 # 
 # n_species_close
 # n_species_far
+
+saveWorkbook(
+  source_wb,
+  file.path(output_dir, "Source_Data_final.xlsx"),
+  overwrite = TRUE
+)
 
