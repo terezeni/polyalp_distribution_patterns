@@ -6,10 +6,18 @@ title: "R scripts for Polyploid frequency decreases with elevation but increases
 type: software
 version: "1.0.0"
 
+<<<<<<< HEAD
 authors:
   - family-names: "Zeni"
     given-names: "Teresa"
     orcid: "https://orcid.org/0009-0001-8982-7973"
+=======
+author:
+
+- family-names: "Zeni"
+  given-names: "Teresa"
+  orcid: "https://orcid.org/0009-0001-8982-7973"
+>>>>>>> b1112893bc8d5ff5287ea0420461538ba69c9703
 
 abstract: >
   This repository contains the R scripts used for the statistical analyses,
