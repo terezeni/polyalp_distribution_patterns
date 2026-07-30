@@ -4,27 +4,26 @@ message: "If you use the R scripts in this repository, please cite this reposito
 title: "R scripts for Polyploid frequency decreases with elevation but increases with distance to glacial refugia in the Eastern European Alps"
 
 type: software
+version: "1.0.0"
 
 authors:
-
-* family-names: "Zeni"
-  given-names: "Teresa"
-  orcid: "https://orcid.org/0009-0001-8982-7973"
+  - family-names: "Zeni"
+    given-names: "Teresa"
+    orcid: "https://orcid.org/0009-0001-8982-7973"
 
 abstract: >
-This repository contains the R scripts used for the statistical analyses,
-phylogenetic analyses, cost-distance calculations, and generation of
-figures associated with a manuscript submitted to Nature Communications.
+  This repository contains the R scripts used for the statistical analyses,
+  phylogenetic analyses, cost-distance calculations, and generation of
+  figures associated with a manuscript submitted to Nature Communications.
 
 repository-code: "https://github.com/terezeni/polyalp_distribution_patterns"
 
-license: GPL-3.0
+license: "GPL-3.0"
 
 keywords:
-
-* R
-* polyploidy
-* Eastern Alps
-* elevation
+  - "R"
+  - "polyploidy"
+  - "Eastern Alps"
+  - "elevation"
 
 date-released: "2026-07-30"
